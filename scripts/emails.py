@@ -8,7 +8,7 @@ grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
 from constants import EMAIL_SERVER, EMAIL_ADDRESS, PASSWORD
-from utils.clean import remove_non_ascii
+from utils.clean import clean
 
 
 # Takes N as argument, being the number of top emails to fetch
@@ -62,7 +62,7 @@ def get_emails(N):
                             pass
                         if content_type == "text/plain" and "attachment" not in content_disposition:
                             # Print text/plain emails and skip attachments
-                            details["body"] = remove_non_ascii(body)
+                            details["body"] = clean(body)
 
                 else: 
                     # Extract content type of email
@@ -71,7 +71,7 @@ def get_emails(N):
                     body = msg_data.get_payload(decode=True).decode("utf-8")
                     if content_type == "text/plain":
                         # Print only email parts
-                        details["body"] = remove_non_ascii(body)
+                        details["body"] = clean(body)
             
                 email_details.append(details)
         
