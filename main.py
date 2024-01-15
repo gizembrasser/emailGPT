@@ -18,3 +18,19 @@ np.random.seed(1337)
 
 with open(INPUT_FILE, "r", encoding="utf-8") as f:
     text = f.read()
+
+# Sorted list of all the unique characters in the text
+chars = sorted(list(set(text)))
+vocab_size = len(chars)
+
+# Create mapping from string to integer (stoi) and integer to string (itos)
+stoi = { ch:i for i,ch in enumerate(chars) }
+itos = { i:ch for i,ch in enumerate(chars) }
+encode = lambda s: [stoi[c] for c in s] # Encoder: take a string, output a list of integers
+decode = lambda l: ''.join([itos[i] for i in l]) # Decoder: take a list of integers, output a string
+
+# Encode the entire text dataset and store it in an array
+data = np.array(encode(text), dtype="int64")
+n = int(0.9*len(data)) # First 90% will be train, rest val
+train_data = data[:n]
+val_data = data[n:]
