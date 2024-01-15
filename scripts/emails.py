@@ -21,7 +21,6 @@ def get_emails(N):
     _, messages = mail.select("inbox")
     # Total number of emails, convert to int to make a `for` loop
     messages = int(messages[0])
-    emails = []
 
     # Iterate over range of email messages IDs in reverse order
     for i in range(messages, messages-N, -1):
@@ -60,7 +59,7 @@ def get_emails(N):
                             pass
                         if content_type == "text/plain" and "attachment" not in content_disposition:
                             # Print text/plain emails and skip attachments
-                            print(remove_non_ascii(body))
+                            print("Body:", remove_non_ascii(body))
 
                 else: 
                     # Extract content type of email
@@ -69,7 +68,7 @@ def get_emails(N):
                     body = msg_data.get_payload(decode=True).decode("utf-8")
                     if content_type == "text/plain":
                         # Print only email parts
-                        print(remove_non_ascii(body))
+                        print("Body:", remove_non_ascii(body))
                 print("="*100)
         
     # Close the connection and logout
@@ -77,6 +76,6 @@ def get_emails(N):
     mail.logout()
 
 
-get_emails(3)
+get_emails(2)
 
     
