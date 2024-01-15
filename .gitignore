@@ -1,4 +1,6 @@
-doc.md
+ideas.md
+numpy.md
+/data
 .env
 /openai-env
 __pycache__
