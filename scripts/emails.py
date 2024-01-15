@@ -7,7 +7,7 @@ from email.header import decode_header
 grandparent_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(grandparent_dir)
 
-from data.constants import EMAIL_SERVER, EMAIL_ADDRESS, PASSWORD
+from constants import EMAIL_SERVER, EMAIL_ADDRESS, PASSWORD
 from utils.clean import remove_non_ascii
 
 
@@ -82,5 +82,5 @@ def get_emails(N):
     return email_details
 
 
-"""print(get_emails(2))"""
+"""print(get_emails(10))"""
     
