@@ -5,6 +5,7 @@ import re
 def clean(text):
     return "".join(c if c.isalnum() else "_" for c in text)
 
+
 # Remove all non-ASCII characters
 def remove_non_ascii(text):
     # Check if non-ASCII characters are present
