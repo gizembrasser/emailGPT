@@ -21,6 +21,7 @@ def get_emails(N):
     _, messages = mail.select("inbox")
     # Total number of emails, convert to int to make a `for` loop
     messages = int(messages[0])
+    email_details = []
 
     # Iterate over range of email messages IDs in reverse order
     for i in range(messages, messages-N, -1):
@@ -28,6 +29,8 @@ def get_emails(N):
         _, msg_data = mail.fetch(str(i), "(RFC822)")
 
         for response in msg_data:
+            details = {}
+
             if isinstance(response, tuple):
                 # Parse a bytes email into a message object
                 msg_data = email.message_from_bytes(response[1])
@@ -42,8 +45,8 @@ def get_emails(N):
 
                 if isinstance(sender, bytes):
                     sender = sender.decode(encoding)
-                print("Subject:", subject)
-                print("From:", sender)
+                details["subject"] = subject
+                details["from"] = sender
 
                 # If the email message has multiple parts
                 if msg_data.is_multipart():
@@ -59,7 +62,7 @@ def get_emails(N):
                             pass
                         if content_type == "text/plain" and "attachment" not in content_disposition:
                             # Print text/plain emails and skip attachments
-                            print("Body:", remove_non_ascii(body))
+                            details["body"] = remove_non_ascii(body)
 
                 else: 
                     # Extract content type of email
@@ -68,14 +71,16 @@ def get_emails(N):
                     body = msg_data.get_payload(decode=True).decode("utf-8")
                     if content_type == "text/plain":
                         # Print only email parts
-                        print("Body:", remove_non_ascii(body))
-                print("="*100)
+                        details["body"] = remove_non_ascii(body)
+            
+                email_details.append(details)
         
     # Close the connection and logout
     mail.close()
     mail.logout()
 
+    return email_details
 
-get_emails(2)
 
+print(get_emails(2))
     
