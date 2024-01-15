@@ -1,2 +1,4 @@
 doc.md
 .env
+/openai-env
+__pycache__
