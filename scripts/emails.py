@@ -82,5 +82,5 @@ def get_emails(N):
     return email_details
 
 
-print(get_emails(2))
+"""print(get_emails(2))"""
     
