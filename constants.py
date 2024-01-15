@@ -13,3 +13,4 @@ DATA_DIR = os.path.join(os.getcwd(), "data")
 
 # Declare the path to the data files
 EMAIL_FILE = os.path.join(DATA_DIR, "emails.txt")
+INPUT_FILE = os.path.join(DATA_DIR, "tiny_shakespeare.txt")
