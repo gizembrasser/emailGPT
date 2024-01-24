@@ -34,3 +34,12 @@ data = np.array(encode(text), dtype="int64")
 n = int(0.9*len(data)) # First 90% will be train, rest val
 train_data = data[:n]
 val_data = data[n:]
+
+# Data loading
+def get_batch(split):
+    # Generate small bacth of data of inputs x and targets/output y
+    data = train_data if split == "train" else val_data
+    ix = np.random.randint(len(data) - block_size, (batch_size,)) # Generate random positions in dataset to grab a batch from
+    x = np.vstack([data[i:i+block_size] for i in ix]) # First block_size characters starting at i, generate chunks for every item in ix
+    y = np.vstack([data[i+1:i+block_size+1] for i in ix]) # Offset by 1 of x
+    return x, y
